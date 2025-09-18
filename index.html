@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unity Developer Portfolio</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-purple: #9c52ce;
+            --secondary-purple: #d733de;
+            --primary-turquoise: #9df4e6;
+            --secondary-turquoise: #7dd3c0;
+            --dark-bg: #0a0a0a;
+            --card-bg: #1a1a1a;
+            --text-light: #ffffff;
+            --text-gray: #b0b0b0;
+            --accent-glow: rgba(157, 244, 230, 0.3);
+            --purple-glow: rgba(156, 82, 206, 0.3);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #0a1a2e 50%, #0e2c1b 100%);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animación de partículas de fondo */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--primary-turquoise);
+            border-radius: 50%;
+            animation: float 15s infinite linear;
+            opacity: 0.6;
+        }
+
+        .particle:nth-child(even) {
+            background: var(--primary-purple);
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) translateX(0px);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        /* Header mejorado */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(157, 244, 230, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, var(--primary-turquoise), var(--primary-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 0.5rem;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            font-weight: 500;
+            border: 2px solid transparent;
+            background: linear-gradient(var(--card-bg), var(--card-bg)) padding-box,
+                        linear-gradient(45deg, var(--primary-turquoise), var(--primary-purple)) border-box;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px var(--accent-glow);
+            background: linear-gradient(45deg, var(--primary-turquoise), var(--primary-purple));
+        }
+
+        .nav-links a.active {
+            background: linear-gradient(45deg, var(--primary-turquoise), var(--primary-purple));
+            color: white;
+            box-shadow: 0 5px 15px var(--accent-glow);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 0 2rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--primary-turquoise), var(--primary-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: var(--text-gray);
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, var(--primary-turquoise), var(--primary-purple));
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px var(--accent-glow);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px var(--accent-glow);
+        }
+
+        /* Sections */
+        .section {
+            padding: 5rem 0;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            background: linear-gradient(45deg, var(--primary-turquoise), var(--primary-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .profile-image {
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .profile-image img {
+            width: 100%;
+            height: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            padding: 0 2rem;
+        }
+
+        .skill-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(157, 244, 230, 0.2);
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px var(--accent-glow);
+            border-color: var(--primary-turquoise);
+        }
+
+        .skill-card i {
+            font-size: 3rem;
+            color: var(--primary-turquoise);
+            margin-bottom: 1rem;
+        }
+
+        /* Portfolio Section */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            padding: 0 2rem;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(157, 244, 230, 0.2);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px var(--accent-glow);
+        }
+
+        .project-image {
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary-turquoise), var(--primary-purple));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-image::before {
+            content: '🎮';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 4rem;
+            opacity: 0.7;
+        }
+
+        .carousel {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .slides {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.5s ease;
+        }
+
+        .slides img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .carousel button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.4);
+            border: none;
+            color: rgb(255, 255, 255);
+            font-size: 1.5rem;
+            padding: 0.3rem 0.6rem;
+            cursor: pointer;
+            z-index: 2;
+            border-radius: 5px;
+        }
+
+        .carousel .prev {
+            left: 10px;
+        }
+
+        .carousel .next {
+            right: 10px;
+        }
+
+        .carousel button:hover {
+            background: rgba(157, 244, 230, 0.7);
+        }
+
+        .project-info {
+            padding: 1.5rem;
+        }
+
+        .project-info h3 {
+            margin-bottom: 0.5rem;
+            color: var(--primary-turquoise);
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .tech-tag {
+            background: #9c52ce;
+            color: rgb(255, 255, 255);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        /* Experience Section - Minimalista */
+        .experience-section {
+            padding: 3rem 0;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .experience-timeline {
+            position: relative;
+            padding: 0 2rem;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 2rem;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, var(--primary-turquoise), var(--primary-purple));
+            border-radius: 2px;
+        }
+
+        .experience-item {
+            position: relative;
+            margin-left: 4rem;
+            margin-bottom: 2.5rem;
+            padding-left: 1.5rem;
+        }
+
+        .experience-item::before {
+            content: '';
+            position: absolute;
+            left: -5.8rem;
+            top: 0.5rem;
+            width: 12px;
+            height: 12px;
+            background: var(--primary-turquoise);
+            border-radius: 50%;
+            border: 3px solid var(--dark-bg);
+            z-index: 2;
+        }
+
+        .experience-item:nth-child(even)::before {
+            background: var(--primary-purple);
+        }
+
+        .experience-date {
+            display: inline-block;
+            background: linear-gradient(45deg, var(--primary-turquoise), var(--primary-purple));
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .experience-role {
+            color: var(--primary-turquoise);
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 0.3rem;
+        }
+
+        .experience-company {
+            color: var(--primary-purple);
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+        }
+
+        .experience-description {
+            color: var(--text-gray);
+            line-height: 1.5;
+            font-size: 0.95rem;
+        }
+
+        /* Contact Section */
+        .contact-content {
+            text-align: center;
+            padding: 0 2rem;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-light);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 1rem;
+            border-radius: 10px;
+            border: 1px solid rgba(157, 244, 230, 0.3);
+        }
+
+        .contact-link:hover {
+            color: var(--primary-turquoise);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px var(--accent-glow);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--card-bg);
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid rgba(157, 244, 230, 0.2);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .timeline-line {
+                left: 1rem;
+            }
+
+            .experience-item {
+                margin-left: 2.5rem;
+            }
+
+            .experience-item::before {
+                left: -4.3rem;
+            }
+
+            .contact-links {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Scrollbar personalizada */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--dark-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(45deg, var(--primary-turquoise), var(--primary-purple));
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Partículas de fondo -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">Richard Sanguino</div>
+            <ul class="nav-links">
+                <li><a href="#home" class="nav-link">Inicio</a></li>
+                <li><a href="#about" class="nav-link">Acerca</a></li>
+                <li><a href="#skills" class="nav-link">Habilidades</a></li>
+                <li><a href="#portfolio" class="nav-link">Portafolio</a></li>
+                <li><a href="#experience" class="nav-link">Experiencia</a></li>
+                <li><a href="#contact" class="nav-link">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Unity Developer</h1>
+            <p>Creando experiencias inmersivas y juegos innovadores con Unity. Especializado en desarrollo de videojuegos (PC, Web y Móviles) y aplicaciones de realidad aumentada.</p>
+            <a href="#portfolio" class="cta-button">Ver Mi Trabajo</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="fade-in">
+            <h2>Acerca de Mí</h2>
+            <div class="about-content">
+                <div class="profile-image">
+                    <div style="width: 100%; height: 250px; 
+                    background: linear-gradient(135deg, var(--primary-turquoise), var(--primary-purple)); 
+                    border-radius: 20px; 
+                    display: flex; 
+                    align-items: center; 
+                    justify-content: center; 
+                    overflow: hidden;">
+  
+                        <img src="img/RIC Character.png" 
+                            alt="Mi imagen"
+                            style="width: 120%; height: 120%; object-fit: contain;">
+                    </div>
+                </div>
+                <div class="about-text">
+                    <p style="text-align: justify;">Soy un Unity Developer con una sólida trayectoria en el desarrollo de videojuegos y aplicaciones interactivas. Mi experiencia incluye la creación de videojuegos 2D para plataformas móviles, web y PC, así como el desarrollo de Serious Games 3D con un enfoque educativo. Además de los juegos, he trabajado en proyectos de vanguardia, como la creación de demos y módulos de Realidad Aumentada (AR) con ARFoundation. Mi habilidad para coordinar con equipos de diseño y gestionar tareas técnicas me permite llevar a cabo proyectos desde la fase de planificación hasta el despliegue final. También cuento con experiencia como instructor personalizado de Unity y trabajo freelancer para clientes de todo tipo.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section">
+        <div class="fade-in">
+            <h2>Habilidades Técnicas</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <i class="fab fa-unity"></i>
+                    <h3>Unity Engine</h3>
+                    <p>Desarrollo avanzado de videojuegos y aplicaciones interactivas</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fab fa-cuttlefish"></i>
+                    <h3>C# Programming</h3>
+                    <p>POO, SOLID, patrones de diseño y arquitecturas de desarrollo</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h3>Realidad Aumentada</h3>
+                    <p>Desarrollo de apps para Android y iOS usando ARFoundation</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fa-solid fa-list-check"></i>
+                    <h3>Gestión de tareas</h3>
+                    <p>Planificiacion y seguimiento de tareas en Trello y Jira</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fa-solid fa-sync-alt"></i>
+                    <h3>Metodologías ágiles</h3>
+                    <p>Scrum y Huddle para el desarrollo de proyectos</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-code-branch"></i>
+                    <h3>Control de Versiones</h3>
+                    <p>Git, GitHub y colaboración en equipo</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="section">
+        <div class="fade-in">
+            <h2>Mi Portafolio</h2>
+            <div class="portfolio-grid">
+                <div class="project-card">
+                    <div class="project-image">
+                        <div class="carousel">
+                            <div class="slides">
+                            <img src="img/PYP2024R1.png" alt="Proyecto 1 imagen 1">
+                            <img src="img/PYP2024R2.png" alt="Proyecto 1 imagen 2">
+                            <img src="img/PYP2024T1.png" alt="Proyecto 1 imagen 3">
+                            <img src="img/PYP2024T2.png" alt="Proyecto 1 imagen 3">
+                            <img src="img/PYP2024LOGIN.png" alt="Proyecto 1 imagen 3">
+                            </div>
+                            <button class="prev">&#10094;</button>
+                            <button class="next">&#10095;</button>
+                        </div>
+
+                    </div>
+                    <div class="project-info">
+                        <h3>Pyramid Play</h3>
+                        <ul style="list-style:none; padding:0; margin:0 0 1rem 0; color:var(--text-gray); font-size:0.95rem; line-height:1.6;">
+                            <li><strong style="color:var(--primary-turquoise);">Año:</strong> 2024</li>
+                            <li><strong style="color:var(--primary-turquoise);">Rol:</strong> Lead Unity Developer</li>
+                            <li><strong style="color:var(--primary-turquoise);">Video:</strong> <a href="https://drive.google.com/drive/folders/1ZXzWsGDAIifjxgZkGhdBM9qBGuoJ0b45" target="_blank" style="color:var(--text-light); text-decoration:underline;">Ver Video</a></li>
+                        </ul>
+
+                        <p style="margin-bottom:1rem; text-align:justify;">
+                            MVP - Desarrollo de 2 minijuegos de tipo casino 2D para la Web (Tragamonedas y Ruleta), ademas del gameplay, contaba con login y con conexion a un Backend propio.
+                        </p>
+
+                        <div class="tech-tags" style="margin-top:1rem;">
+                            <span class="tech-tag">Unity</span>
+                            <span class="tech-tag">C#</span>
+                            <span class="tech-tag">APIRest</span>
+                            <span class="tech-tag">UnityWebRequest</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">
+                        <div class="carousel">
+                            <div class="slides">
+                            <img src="img/CVAR1.png" alt="Proyecto 1 imagen 1">
+                            <img src="img/CVAR2.png" alt="Proyecto 1 imagen 2">
+                            </div>
+                            <button class="prev">&#10094;</button>
+                            <button class="next">&#10095;</button>
+                        </div>
+
+                    </div>
+                    <div class="project-info">
+                        <h3>CVAR - APP</h3>
+                        <ul style="list-style:none; padding:0; margin:0 0 1rem 0; color:var(--text-gray); font-size:0.95rem; line-height:1.6;">
+                            <li><strong style="color:var(--primary-turquoise);">Año:</strong> 2024</li>
+                            <li><strong style="color:var(--primary-turquoise);">Rol:</strong> Game Designer, UI/UX Designer y Programador</li>
+                            <li><strong style="color:var(--primary-turquoise);">App:</strong> <a href="https://ric12.itch.io/cvar" target="_blank" style="color:var(--text-light); text-decoration:underline;">Link App</a></li>
+                            <li><strong style="color:var(--primary-turquoise);">Video:</strong> <a href="https://drive.google.com/file/d/132AKCy9HXodjrlNEWqrKNbZ94lHM6A--/view" target="_blank" style="color:var(--text-light); text-decoration:underline;">Ver Video</a></li>
+                        </ul>
+
+                        <p style="margin-bottom:1rem; text-align:justify;">
+                            Aplicación de realidad aumentada de tipo portal para la visualización de mi CV, brindando una experiencia inmersiva e interactiva. 
+                        </p>
+
+                        <div class="tech-tags" style="margin-top:1rem;">
+                            <span class="tech-tag">Unity</span>
+                            <span class="tech-tag">C#</span>
+                            <span class="tech-tag">Blender</span>
+                            <span class="tech-tag">Adobe Illustrator</span>
+                            <span class="tech-tag">ARFoundation</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">
+                        <div class="carousel">
+                            <div class="slides">
+                            <img src="img/HH1.png" alt="Proyecto 1 imagen 1">
+                            <img src="img/HH2.png" alt="Proyecto 1 imagen 2">
+                            <img src="img/HH3.png" alt="Proyecto 1 imagen 3">
+                            <img src="img/HH4.png" alt="Proyecto 1 imagen 3">
+                            <img src="img/HH5.png" alt="Proyecto 1 imagen 3">
+                            <img src="img/HHH6.png" alt="Proyecto 1 imagen 1">
+                            <img src="img/HH7.png" alt="Proyecto 1 imagen 2">
+                            <img src="img/HH8.png" alt="Proyecto 1 imagen 3">
+                            <img src="img/HH9.png" alt="Proyecto 1 imagen 3">
+                            <img src="img/HH10.png" alt="Proyecto 1 imagen 3">
+                            <img src="img/HH11.png" alt="Proyecto 1 imagen 3">
+                            </div>
+                            <button class="prev">&#10094;</button>
+                            <button class="next">&#10095;</button>
+                        </div>
+
+                    </div>
+                    <div class="project-info">
+                        <h3>Health Heroes</h3>
+                        <ul style="list-style:none; padding:0; margin:0 0 1rem 0; color:var(--text-gray); font-size:0.95rem; line-height:1.6;">
+                            <li><strong style="color:var(--primary-turquoise);">Año:</strong> 2021</li>
+                            <li><strong style="color:var(--primary-turquoise);">Rol:</strong> Game Designer, Diseñador, Modelador y Programador.</li>
+                            <li><strong style="color:var(--primary-turquoise);">Video:</strong> <a href="https://www.youtube.com/watch?v=HkoGm6UhdlM&ab_channel=RichardSanguino" target="_blank" style="color:var(--text-light); text-decoration:underline;">Ver Video</a></li>
+                        </ul>
+
+                        <p style="margin-bottom:1rem; text-align:justify;">
+                            Videojuego educativo en 3D, creado como tesis de grado para la carrera de ingeniería de sistemas. Su propósito es motivar a niños de primaria a adoptar hábitos saludables. Fue diseñado, desarrollado e implementado en una escuela de tu ciudad.
+                        </p>
+
+                        <div class="tech-tags" style="margin-top:1rem;">
+                            <span class="tech-tag">Unity</span>
+                            <span class="tech-tag">C#</span>
+                            <span class="tech-tag">Trello</span>
+                            <span class="tech-tag">Blender</span>
+                            <span class="tech-tag">Adobe Illustrator</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">
+                        <div class="carousel">
+                            <div class="slides">
+                            <img src="img/BA (1).png" alt="Proyecto 1 imagen 1">
+                            <img src="img/BA (2).png" alt="Proyecto 1 imagen 1">
+                            <img src="img/BA (3).png" alt="Proyecto 1 imagen 1">
+                            <img src="img/BA (4).png" alt="Proyecto 1 imagen 1">
+                            <img src="img/BA (5).png" alt="Proyecto 1 imagen 1">
+                            <img src="img/BA (6).png" alt="Proyecto 1 imagen 1">
+                            <img src="img/BA (7).png" alt="Proyecto 1 imagen 1">
+                            <img src="img/BA (8).png" alt="Proyecto 1 imagen 1">
+                            <img src="img/BA (9).png" alt="Proyecto 1 imagen 1">
+                            <img src="img/BA (10).png" alt="Proyecto 1 imagen 1">
+                            <img src="img/BA (11).png" alt="Proyecto 1 imagen 1">
+                            <img src="img/BA (12).png" alt="Proyecto 1 imagen 1">
+                            <img src="img/BA (13).png" alt="Proyecto 1 imagen 1">
+                            </div>
+                            <button class="prev">&#10094;</button>
+                            <button class="next">&#10095;</button>
+                        </div>
+
+                    </div>
+                    <div class="project-info">
+                        <h3>Bioar - APP</h3>
+                        <ul style="list-style:none; padding:0; margin:0 0 1rem 0; color:var(--text-gray); font-size:0.95rem; line-height:1.6;">
+                            <li><strong style="color:var(--primary-turquoise);">Año:</strong> 2021</li>
+                            <li><strong style="color:var(--primary-turquoise);">Rol:</strong> Líder del proyecto, Diseñador, Programador</li> 
+                        </ul>
+
+                        <p style="margin-bottom:1rem; text-align:justify;">
+                            Aplicación móvil, para el aprendizaje de la biodiversidad Colombiana, mediante realidad aumentada, contenido en 3D y pruebas de aprendizaje, esta aplicación fue presentada en el consurso latinoamericano TuApp.org
+                        </p>
+
+                        <div class="tech-tags" style="margin-top:1rem;">
+                            <span class="tech-tag">Unity</span>
+                            <span class="tech-tag">C#</span>
+                            <span class="tech-tag">Vuforia</span>
+                            <span class="tech-tag">SQLite</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">
+                        <div class="carousel">
+                            <div class="slides">
+                            <img src="img/PHH (1).png" alt="Proyecto 1 imagen 1">
+                            <img src="img/PHH (2).png" alt="Proyecto 1 imagen 1">
+                            <img src="img/PHH (3).png" alt="Proyecto 1 imagen 1">
+                            <img src="img/PHH (4).png" alt="Proyecto 1 imagen 1">
+                            <img src="img/PHH (5).png" alt="Proyecto 1 imagen 1">
+                            </div>
+                            <button class="prev">&#10094;</button>
+                            <button class="next">&#10095;</button>
+                        </div>
+
+                    </div>
+                    <div class="project-info">
+                        <h3>Protector of history</h3>
+                        <ul style="list-style:none; padding:0; margin:0 0 1rem 0; color:var(--text-gray); font-size:0.95rem; line-height:1.6;">
+                            <li><strong style="color:var(--primary-turquoise);">Año:</strong> 2020</li>
+                            <li><strong style="color:var(--primary-turquoise);">Rol:</strong> Diseñador, modelador 3D y programador</li> 
+                            <li><strong style="color:var(--primary-turquoise);">Video:</strong> <a href="https://www.youtube.com/watch?v=Dd44DdJVh2w" target="_blank" style="color:var(--text-light); text-decoration:underline;">Ver Video</a></li>
+                        </ul>
+
+                        <p style="margin-bottom:1rem; text-align:justify;">
+                            Videojuego de exploración ambientado en la ciudad de Valledupar-Colombia, donde el objetivo principal es recolectar los ítems hasta llegar al sitio principal del nivel, este videojuego fue desarrollado para un Game Jam de 48 horas.
+                        </p>
+
+                        <div class="tech-tags" style="margin-top:1rem;">
+                            <span class="tech-tag">Unity</span>
+                            <span class="tech-tag">C#</span>
+                            <span class="tech-tag">Blender</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section - Minimalista -->
+    <section id="experience" class="experience-section">
+        <div class="fade-in">
+            <h2 style="margin-bottom: 20px;">Experiencia Profesional</h2>
+            <div class="experience-timeline">
+                <div class="timeline-line"></div>
+                
+                <div class="experience-item">
+                    <div class="experience-date">Julio de 2024 - Junio de 2025</div>
+                    <div class="experience-role">Unity Developer</div>
+                    <div class="experience-company">Hadron Games</div>
+                    <div class="experience-description">
+                        Desarrollo de videojuegos 2D educativos para plataformas móviles.
+                    </div>
+                </div>
+
+                <div class="experience-item">
+                    <div class="experience-date">Abril de 2024 - Junio de 2024</div>
+                    <div class="experience-role">Unity Developer</div>
+                    <div class="experience-company">Freelancer</div>
+                    <div class="experience-description">
+                        Desarrollo, prueba y despliegue de juegos 2D para la web, planificación de tareas técnicas según requerimientos y coordinación con equipo de diseño para integrar gráficos 2D en los proyectos.
+                    </div>
+                </div>
+
+                <div class="experience-item">
+                    <div class="experience-date">Febrero de 2022 - Octubre de 2023</div>
+                    <div class="experience-role">Unity Developer</div>
+                    <div class="experience-company">Shokworks, inc</div>
+                    <div class="experience-description">
+                        Desarrollo de aplicaciones, demos y módulos AR con ARFoundation, y videojuegos de casino para móviles.
+                    </div>
+                </div>
+
+                <div class="experience-item">
+                    <div class="experience-date">Marzo de 2021 - Noviembre de 2021</div>
+                    <div class="experience-role">Unity Developer</div>
+                    <div class="experience-company">Instituto Osvaldo Vergara Fernandez</div>
+                    <div class="experience-description">
+                        Desarrollo de un Serious Game 3D educativo para fomentar hábitos saludables en niños de primaria.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <div class="fade-in">
+            <h2>Contacto</h2>
+            <div class="contact-content">
+                <p>¿Tienes un proyecto en mente? Me encantaría colaborar contigo y crear algo increíble juntos.</p>
+                <div class="contact-links">
+                    <a href="https://www.linkedin.com/in/richard-sanguino-ramirez/" class="contact-link">
+                        <i class="fab fa-linkedin"></i>
+                        LinkedIn
+                    </a>
+                    <a href="https://github.com/Richard-cell" class="contact-link">
+                        <i class="fab fa-github"></i>
+                        GitHub
+                    </a>
+                    <a href="mailto:richard3.sanguino@gmail.com" class="contact-link">
+                        <i class="fas fa-envelope"></i>
+                        Email
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Unity Developer Portfolio. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        // Crear partículas animadas
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Navegación activa
+        function updateActiveNav() {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                if (pageYOffset >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight - 100) {
+                current = 'contact';
+            }
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        // Animación de scroll suave
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            });
+        });
+
+        // Animación de aparición al hacer scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Header transparente al hacer scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(26, 26, 26, 0.98)';
+            } else {
+                header.style.background = 'rgba(26, 26, 26, 0.95)';
+            }
+            
+            // Actualizar navegación activa
+            updateActiveNav();
+        });
+
+        // Inicializar partículas
+        createParticles();
+
+        // Efecto de cursor personalizado
+        document.addEventListener('mousemove', (e) => {
+            const cursor = document.createElement('div');
+            cursor.style.position = 'fixed';
+            cursor.style.left = e.clientX - 5 + 'px';
+            cursor.style.top = e.clientY - 5 + 'px';
+            cursor.style.width = '10px';
+            cursor.style.height = '10px';
+            cursor.style.background = 'var(--primary-turquoise)';
+            cursor.style.borderRadius = '50%';
+            cursor.style.pointerEvents = 'none';
+            cursor.style.opacity = '0.6';
+            cursor.style.zIndex = '9999';
+            cursor.style.animation = 'fadeOut 1s ease-out forwards';
+            document.body.appendChild(cursor);
+            
+            setTimeout(() => {
+                cursor.remove();
+            }, 1000);
+        });
+
+        // Animación fadeOut para el cursor
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeOut {
+                to {
+                    opacity: 0;
+                    transform: scale(2);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Carrusel de imágenes
+        document.querySelectorAll('.carousel').forEach(carousel => {
+            const slides = carousel.querySelector('.slides');
+            const images = slides.querySelectorAll('img');
+            let index = 0;
+
+            const showSlide = () => {
+                slides.style.transform = `translateX(-${index * 100}%)`;
+            };
+
+            carousel.querySelector('.prev').addEventListener('click', () => {
+                index = (index - 1 + images.length) % images.length;
+                showSlide();
+            });
+
+            carousel.querySelector('.next').addEventListener('click', () => {
+                index = (index + 1) % images.length;
+                showSlide();
+            });
+        });
+        
+    </script>
+</body>
+</html>
